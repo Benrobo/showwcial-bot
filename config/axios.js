@@ -1,9 +1,8 @@
 const axios = require("axios");
-
-const ShowwcialBackend = `http://localhost:3000/api`;
+const Env = require("./env");
 
 const $axios = axios.create({
-  baseURL: ShowwcialBackend,
+  baseURL: Env.backendApi,
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
