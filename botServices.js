@@ -31,6 +31,7 @@ class BotServices {
       const req = await $axios.post(endpoint, body);
       return req?.data ?? req?.response?.data;
     } catch (e) {
+			// console.log(e)
       return e.response?.data ?? { message: e.message, code: e?.code };
     }
   }
@@ -174,6 +175,7 @@ class BotServices {
   }
 
   async handleShows(channelId) {
+		// console.log({channelId})
     let response = {
       success: false,
       title: null,

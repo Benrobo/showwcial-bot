@@ -108,7 +108,7 @@ client.on("interactionCreate", async (interaction) => {
 					ephemeral: false,
 				});
 		} catch (e) {
-			// console.log(e);
+			console.log(e);
 			const embeddMsg = embed
 				.setTitle(`❌ **Failed Fetching Thread**`)
 				.setDescription(`Something went wrong. Please try again later.`);
