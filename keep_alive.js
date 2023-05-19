@@ -4,7 +4,7 @@ const app = express();
 
 const port = process.env.PORT || 3421;
 
-app.get("/", (req, res) => {
+app.all("/", (req, res) => {
   return res.status(200).send(`✅ Showwcial-Bot is online.`);
 });
 
