@@ -37,7 +37,7 @@ async function registerCommands() {
   try {
     console.log("REGISTERING....");
     await rest.put(
-      Routes.applicationGuildCommands(Env.discordClientId, Env.botId),
+      Routes.applicationGuildCommands(Env.discordClientId, Env.guildId),
       {
         body: commands,
       }
