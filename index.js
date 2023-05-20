@@ -7,11 +7,8 @@ const {
   PermissionFlagsBits,
   GatewayIntentBits,
 } = require("discord.js");
-const registerCommand = require("./commands/register");
 const BotServices = require("./botServices");
 const { extractTokenFromMsg } = require("./util");
-
-// registerCommand();
 
 const botServices = new BotServices();
 
@@ -103,7 +100,6 @@ client.on("messageCreate", async (interaction) => {
     }
     if (commandName === "thread") {
       try {
-        console.log({ channelId });
         const response = await botServices.handleThreads(channelId);
         const embeddColor = response?.success ? 0x3f7eee : 0xff0000;
         const embeddTitle = response?.success
@@ -122,14 +118,17 @@ client.on("messageCreate", async (interaction) => {
           .setImage(embeddImage);
 
         // * ephemeral: true would only make the message visible to sender.
-        if (response?.success === false)
+        if (response?.success === false) {
           interaction.reply({ embeds: [embeddMsg], ephemeral: true });
-        if (response?.success === true)
+          return;
+        }
+        if (response?.success === true) {
           interaction.reply({
             embeds: [embeddMsg],
             ephemeral: false,
           });
-        return;
+          return;
+        }
       } catch (e) {
         // console.log(e);
         const embeddMsg = embed
