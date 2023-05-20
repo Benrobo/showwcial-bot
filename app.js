@@ -1,3 +1,4 @@
+// ! This is meant for bot having the 'slashCommands'.
 const keep_alive = require("./keep_alive");
 const Env = require("./config/env");
 const { Client, IntentsBitField, EmbedBuilder } = require("discord.js");
