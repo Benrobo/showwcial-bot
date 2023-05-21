@@ -1,4 +1,5 @@
 //! This is meant for bot not having the slashCommands
+// ! It should be used with a prefix of "$" followed by necessary commands.
 const Env = require("./config/env");
 const {
   Client,

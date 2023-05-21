@@ -36,12 +36,10 @@ const rest = new REST({ version: "9" }).setToken(Env.discordToken);
 async function registerCommands() {
   try {
     console.log("REGISTERING....");
-    await rest.put(
-      Routes.applicationGuildCommands(Env.discordClientId, Env.guildId),
-      {
-        body: commands,
-      }
-    );
+    // register the slash commands gloabally for multiple servers.
+    await rest.put(Routes.applicationCommands(Env.discordClientId), {
+      body: commands,
+    });
     console.log("SLASH COMMAND REGISTERING....");
   } catch (e) {
     console.log(e);
