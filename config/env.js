@@ -4,7 +4,7 @@ dotenv.config();
 const Env = {
   discordClientId: process.env.DISCORD_CLIENT_ID,
   discordToken: process.env.DISCORD_TOKEN,
-  guildId: "1100925767740817428",
+  // guildId: "1109733408600506529",
   backendApi:
     process.env.NODE_ENV !== "production"
       ? "http://localhost:3000/api"
