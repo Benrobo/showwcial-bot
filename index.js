@@ -22,7 +22,7 @@ const client = new Client({
     IntentsBitField.Flags.GuildMessages,
     GatewayIntentBits.MessageContent,
   ],
-  partials: [PermissionFlagsBits.SendMessages],
+  //   partials: [PermissionFlagsBits.SendMessages],
 });
 
 client.on("ready", async () => {
@@ -92,10 +92,17 @@ client.on("messageCreate", async (interaction) => {
 
       // handle response.
       // * ephemeral: true would only make the message visible to sender.
-      if (response?.success === false)
+      if (response.success === true) {
+        interaction.reply({
+          embeds: [embeddMsg],
+          ephemeral: false,
+        });
+        return;
+      }
+      if (response.success === false) {
         interaction.reply({ embeds: [embeddMsg], ephemeral: true });
-      if (response?.success === true)
-        interaction.reply({ embeds: [embeddMsg], ephemeral: true });
+        return;
+      }
       return;
     }
     if (commandName === "thread") {
