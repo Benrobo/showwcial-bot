@@ -19,6 +19,10 @@ function extractTokenFromMsg(msg) {
   return res;
 }
 
+const sleep = async (sec) =>
+  Promise.resolve(() => setTimeout(res(), sec * 1000));
+
 module.exports = {
   extractTokenFromMsg,
+  sleep,
 };
