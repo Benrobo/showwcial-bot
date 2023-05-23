@@ -117,6 +117,15 @@ client.on("interactionCreate", async (interaction) => {
         interaction.reply({ embeds: [embeddMsg], ephemeral: true });
       }
     }
+    if (commandName === "jobs" || commandName === "job") {
+      // ! coming soon
+      const title = "🔔 *Coming Soon*";
+      const embeddMsg = embed
+        .setTitle(title)
+        .setDescription("This feature isn't available now.")
+        .setColor(0x3f7eee);
+      interaction.reply({ embeds: [embeddMsg], ephemeral: true });
+    }
   } catch (err) {
     console.log(`Discord error: ${err}`);
     const title =
