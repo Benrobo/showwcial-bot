@@ -4,6 +4,7 @@ const Env = require("./config/env");
 const { Client, IntentsBitField, EmbedBuilder } = require("discord.js");
 const registerCommand = require("./commands/register");
 const BotServices = require("./botServices");
+const { sleep } = require("./util");
 
 registerCommand();
 
@@ -20,10 +21,11 @@ client.on("ready", async () => {
 client.on("interactionCreate", async (interaction) => {
   if (!interaction.isCommand()) return;
 
-  const { commandName, options, channelId } = interaction;
   const embed = new EmbedBuilder();
 
   try {
+    const { commandName, options, channelId } = interaction;
+    console.log({ channelId });
     // handle bot authentication.
     if (commandName === "authenticate") {
       const tokenInput = interaction.options.get("token");
@@ -42,10 +44,10 @@ client.on("interactionCreate", async (interaction) => {
 
       // handle response.
       // * ephemeral: true would only make the message visible to sender.
-      if (response?.success === false)
-        interaction.reply({ embeds: [embeddMsg], ephemeral: true });
-      if (response?.success === true)
-        interaction.reply({ embeds: [embeddMsg], ephemeral: true });
+      interaction.reply({
+        embeds: [embeddMsg],
+        ephemeral: response?.success ? false : true,
+      });
     }
     if (commandName === "threads") {
       try {
@@ -67,15 +69,12 @@ client.on("interactionCreate", async (interaction) => {
           .setImage(embeddImage);
 
         // * ephemeral: true would only make the message visible to sender.
-        if (response?.success === false)
-          interaction.reply({ embeds: [embeddMsg], ephemeral: true });
-        if (response?.success === true)
-          interaction.reply({
-            embeds: [embeddMsg],
-            ephemeral: false,
-          });
+        interaction.reply({
+          embeds: [embeddMsg],
+          ephemeral: response?.success ? false : true,
+        });
       } catch (e) {
-        // console.log(e);
+        console.log(e);
         const embeddMsg = embed
           .setTitle(`❌ **Failed Fetching Thread**`)
           .setDescription(`Something went wrong. Please try again later.`);
@@ -102,13 +101,10 @@ client.on("interactionCreate", async (interaction) => {
           .setImage(embeddImage);
 
         // * ephemeral: true would only make the message visible to sender.
-        if (response?.success === false)
-          interaction.reply({ embeds: [embeddMsg], ephemeral: true });
-        if (response?.success === true)
-          interaction.reply({
-            embeds: [embeddMsg],
-            ephemeral: false,
-          });
+        interaction.reply({
+          embeds: [embeddMsg],
+          ephemeral: response?.success ? false : true,
+        });
       } catch (e) {
         console.log(e);
         const embeddMsg = embed
