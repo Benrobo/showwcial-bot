@@ -32,6 +32,7 @@ client.on("interactionCreate", async (interaction) => {
       const tokenValue = tokenInput.value;
 
       // make authentication requests.
+      await interaction.deferReply();
       const response = await botServices.authenticateBot(tokenValue, channelId);
       const embeddColor = response?.success ? 0x3f7eee : 0xff0000;
       const embeddTitle = response?.success
@@ -44,13 +45,14 @@ client.on("interactionCreate", async (interaction) => {
 
       // handle response.
       // * ephemeral: true would only make the message visible to sender.
-      interaction.reply({
+      await interaction.editReply({
         embeds: [embeddMsg],
         ephemeral: response?.success ? false : true,
       });
     }
     if (commandName === "threads") {
       try {
+        await interaction.deferReply();
         const response = await botServices.handleThreads(channelId);
         const embeddColor = response?.success ? 0x3f7eee : 0xff0000;
         const embeddTitle = response?.success
@@ -69,7 +71,7 @@ client.on("interactionCreate", async (interaction) => {
           .setImage(embeddImage);
 
         // * ephemeral: true would only make the message visible to sender.
-        interaction.reply({
+        await interaction.editReply({
           embeds: [embeddMsg],
           ephemeral: response?.success ? false : true,
         });
@@ -83,6 +85,7 @@ client.on("interactionCreate", async (interaction) => {
     }
     if (commandName === "shows") {
       try {
+        await interaction.deferReply();
         const response = await botServices.handleShows(channelId);
         const embeddColor = response?.success ? 0x3f7eee : 0xff0000;
         const embeddTitle = response?.success
@@ -101,7 +104,7 @@ client.on("interactionCreate", async (interaction) => {
           .setImage(embeddImage);
 
         // * ephemeral: true would only make the message visible to sender.
-        interaction.reply({
+        await interaction.editReply({
           embeds: [embeddMsg],
           ephemeral: response?.success ? false : true,
         });
